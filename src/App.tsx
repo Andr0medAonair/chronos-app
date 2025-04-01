@@ -2,11 +2,14 @@ import { Container } from './components/Container';
 import { Countdown } from './components/Countdown';
 import { Logo } from './components/Logo';
 import { Menu } from './components/Menu';
+import { DefaultInput } from './components/DefaultInput';
+import { Cycles } from './components/Cycles';
+import { DefaultButton } from './components/DefaultButton';
+import { PlayCircleIcon } from 'lucide-react';
+import { Footer } from './components/Footer';
 
 import './styles/theme.css';
 import './styles/global.css';
-import { DefaultInput } from './components/DefaultInput';
-import { Cycles } from './components/Cycles';
 
 export default function App() {
   return (
@@ -37,9 +40,12 @@ export default function App() {
             <Cycles />
           </div>
           <div className='formRow'>
-            <button>Send</button>
+            <DefaultButton icon={<PlayCircleIcon />} isError='' />
           </div>
         </form>
+      </Container>
+      <Container>
+        <Footer />
       </Container>
     </>
   );
