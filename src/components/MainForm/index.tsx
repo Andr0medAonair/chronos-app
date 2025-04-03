@@ -16,7 +16,7 @@ export function MainForm() {
         />
       </div>
       <div className={styles.formRow}>
-        <span>Lorem ipsum dolor sit amet.</span>
+        <span>The next break is of 25 minutes.</span>
       </div>
       <div className={styles.formRow}>
         <Cycles />
