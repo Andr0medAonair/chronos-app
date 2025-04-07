@@ -67,6 +67,11 @@ export function MainForm() {
         activeTask: null,
         secondsRemaning: 0,
         formattedSecondsRemaining: '00:00',
+        tasks: prevState.tasks.map(task => {
+          return prevState.activeTask && prevState.activeTask.id === task.id
+            ? { ...task, interruptionDate: Date.now() }
+            : task;
+        }),
       };
     });
   }
