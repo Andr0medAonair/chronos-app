@@ -1,6 +1,6 @@
-import { PlayCircleIcon } from 'lucide-react';
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 import { Cycles } from '../Cycles';
-import { DefaultButton } from '../DefaultButton';
+import { Colour, DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
 import styles from './styles.module.css';
 import React from 'react';
@@ -56,27 +56,63 @@ export function MainForm() {
     });
   }
 
+  function handleTaskInterruption(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    e.preventDefault();
+
+    setState(prevState => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaning: 0,
+        formattedSecondsRemaining: '00:00',
+      };
+    });
+  }
+
   return (
     <form onSubmit={handleCreateNewTask} className={styles.form} action=''>
       <div className={styles.formRow}>
         <DefaultInput
           id='myInput'
-          labelText='test'
+          labelText='task'
           type='text'
           placeholder='Type something...'
           // value={taskName}
           // onChange={handleInput}
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
       <div className={styles.formRow}>
         <span>The next break is of 25 minutes.</span>
       </div>
+      {state.currentCycle > 0 && (
+        <div className={styles.formRow}>
+          <Cycles />
+        </div>
+      )}
       <div className={styles.formRow}>
-        <Cycles />
-      </div>
-      <div className={styles.formRow}>
-        <DefaultButton icon={<PlayCircleIcon />} isError='' />
+        {!state.activeTask ? (
+          <DefaultButton
+            key='submit-button'
+            aria-label='Begin new task'
+            title='Begin new task'
+            type='submit'
+            icon={<PlayCircleIcon />}
+          />
+        ) : (
+          <DefaultButton
+            key='interruption-button'
+            aria-label='Pause current task'
+            title='Pause current task'
+            type='button'
+            color={Colour.RED}
+            onClick={handleTaskInterruption}
+            icon={<StopCircleIcon />}
+          />
+        )}
       </div>
     </form>
   );
