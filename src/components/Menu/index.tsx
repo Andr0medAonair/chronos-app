@@ -23,9 +23,7 @@ export function Menu() {
       const nextTheme = previousTheme === 'light' ? 'dark' : 'light';
       return nextTheme;
     });
-  }
-
-  
+  }  
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

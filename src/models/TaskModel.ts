@@ -1,4 +1,4 @@
-enum TaskType {
+export enum TaskType {
   WORK_TIME = "workTime",
   SHORT_BREAK_TIME = "shortBreakTime",
   LONG_BREAK_TIME = "longBreakTime"
