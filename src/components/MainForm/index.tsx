@@ -9,25 +9,20 @@ import { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getCycleType } from '../../utils/getCycleType';
-import { formatSeconds } from '../../utils/formatSeconds';
-import { countRemaningSeconds } from '../../utils/countRemainingSeconds';
+import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 
 export function MainForm() {
-  // const [taskName, setTaskName] = React.useState('');
-  const { state, setState } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = React.useRef<HTMLInputElement>(null);
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getCycleType(nextCycle);
-  // function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-  //   return setTaskName(event.target.value);
-  // }
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (taskNameInput.current === null) return;
 
-    const taskName = taskNameInput.current?.value.trim();
+    const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) return alert('Task must have a name');
 
@@ -41,19 +36,7 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    const secondsRemaning = countRemaningSeconds(newTask.duration);
-
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaning,
-        formattedSecondsRemaining: formatSeconds(secondsRemaning),
-        tasks: [...prevState.tasks, newTask],
-      };
-    });
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
   }
 
   function handleTaskInterruption(
@@ -61,19 +44,7 @@ export function MainForm() {
   ) {
     e.preventDefault();
 
-    setState(prevState => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaning: 0,
-        formattedSecondsRemaining: '00:00',
-        tasks: prevState.tasks.map(task => {
-          return prevState.activeTask && prevState.activeTask.id === task.id
-            ? { ...task, interruptionDate: Date.now() }
-            : task;
-        }),
-      };
-    });
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
   return (
