@@ -12,14 +12,14 @@ export function taskReducer(
     case TaskActionTypes.START_TASK: {
       const newTask = action.payload;
       const nextCycle = getNextCycle(state.currentCycle);
-      const secondsRemaning = countRemaningSeconds(newTask.duration);
-      const formattedSecondsRemaining = formatSeconds(secondsRemaning);
+      const secondsRemaining = countRemaningSeconds(newTask.duration);
+      const formattedSecondsRemaining = formatSeconds(secondsRemaining);
 
       return {
         ...state,
         activeTask: newTask,
         currentCycle: nextCycle,
-        secondsRemaning,
+        secondsRemaining,
         formattedSecondsRemaining,
         tasks: [...state.tasks, newTask],
       };
@@ -28,7 +28,7 @@ export function taskReducer(
       return {
         ...state,
         activeTask: null,
-        secondsRemaning: 0,
+        secondsRemaining: 0,
         formattedSecondsRemaining: '00:00',
         tasks: state.tasks.map(task => {
           return state.activeTask && state.activeTask.id === task.id

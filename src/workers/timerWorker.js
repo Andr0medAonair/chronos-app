@@ -1,15 +1,28 @@
+import {
+  calculateCountdownSecondsCeil,
+  calculateCountdownSecondsFloor,
+  calculateEndDate,
+} from '../utils/timerWorkerFormatters';
+
+let isRunning = false;
+
 self.onmessage = function (event) {
-  switch (event.data) {
-    case 'OPEN_COMMUNICATION': {
-      self.postMessage('Opening communication');
-      break;
-    }
-    case 'CLOSE_COMMUNICATION': {
-      self.postMessage('Closing...');
-      self.close();
-      break;
-    }
-    default:
-      self.postMessage('Unknown command');
+  if (isRunning) return;
+
+  isRunning = true;
+
+  const state = event.data;
+  const { activeTask, secondsRemaining } = state;
+
+  const endDate = calculateEndDate(activeTask.startDate, secondsRemaining);
+  let countdownSeconds = calculateCountdownSecondsCeil(endDate);
+
+  function tick() {
+    self.postMessage(countdownSeconds);
+    countdownSeconds = calculateCountdownSecondsFloor(endDate);
+
+    setTimeout(tick, 1000)
   }
+
+  tick();
 };

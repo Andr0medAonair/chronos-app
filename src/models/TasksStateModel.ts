@@ -8,7 +8,7 @@ type Config = {
 
 export type TaskStateModel = {
   tasks: TaskModel[];
-  secondsRemaning: number;
+  secondsRemaining: number;
   formattedSecondsRemaining: string;
   activeTask: TaskModel | null;
   currentCycle: number;
