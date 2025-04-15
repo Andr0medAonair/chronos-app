@@ -5,6 +5,7 @@ import { taskReducer } from './taskReducer';
 import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
 import { TaskActionTypes } from './taskActions';
 import { loadBeep } from '../../utils/loadBeep';
+import { toastifyAdapter } from '../../adapters/toastifyAdapter';
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
@@ -20,6 +21,9 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     const countdownSeconds = e.data;
 
     if (countdownSeconds <= 0) {
+      toastifyAdapter.dismiss();
+      toastifyAdapter.info('Task completed');
+
       if (playBeepRef.current) {
         playBeepRef.current();
         playBeepRef.current = null

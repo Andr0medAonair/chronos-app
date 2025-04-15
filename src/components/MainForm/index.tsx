@@ -11,6 +11,7 @@ import { getNextCycle } from '../../utils/getNextCycle';
 import { getCycleType } from '../../utils/getCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 import { Tips } from '../Tips';
+import { toastifyAdapter } from '../../adapters/toastifyAdapter';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -20,12 +21,13 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    toastifyAdapter.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
-    if (!taskName) return alert('Task must have a name');
+    if (!taskName) return toastifyAdapter.error('Task must have a name');
 
     const newTask: TaskModel = {
       id: v4(),
@@ -37,6 +39,8 @@ export function MainForm() {
       type: nextCycleType,
     };
 
+    toastifyAdapter.success('Task started');
+
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
   }
 
@@ -44,6 +48,8 @@ export function MainForm() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     e.preventDefault();
+    toastifyAdapter.dismiss();
+    toastifyAdapter.warn('Task interrupted');
 
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
