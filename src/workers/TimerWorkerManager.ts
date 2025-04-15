@@ -1,3 +1,5 @@
+import { TaskStateModel } from "../models/TasksStateModel";
+
 let instance: TimerWorkerManager | null = null;
 const timerWorkerPath = './timerWorker.js';
 
@@ -16,7 +18,7 @@ export class TimerWorkerManager {
     return instance;
   }
 
-  postMessage(message: any) {
+  postMessage(message: TaskStateModel) {
     this.worker.postMessage(message);
   }
 
