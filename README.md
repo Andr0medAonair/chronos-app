@@ -1,6 +1,11 @@
 # 📦 Chronos Pomodoro App
 A modern Chronos Pomodoro React application built with Vite, TypeScript, HTML and CSS.
 
+
+## 🚩 Status
+
+🚧 In progress
+
 ## ✨ Features
   - ⚡ Fast bundling with Vite
   - 🛠️ Type-safe with TypeScript

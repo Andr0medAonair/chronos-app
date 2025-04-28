@@ -9,11 +9,14 @@ import { getTaskStatus } from '../../utils/getTaskStatus';
 import { sortTasks, SortTasksOptions } from '../../utils/sortTasks';
 import { useEffect, useState } from 'react';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import { toastifyAdapter } from '../../adapters/toastifyAdapter';
 
 import styles from './styles.module.css';
 
 export function History() {
   const { state, dispatch } = useTaskContext();
+  const [historyClearConfirmation, setHistoryClearConfirmation] =
+    useState(false);
   const hasTasks = state.tasks.length > 0;
   const [sortTaskOptions, setSortTaskOptions] = useState<SortTasksOptions>(
     () => {
@@ -36,6 +39,19 @@ export function History() {
     }));
   }, [state.tasks]);
 
+  useEffect(() => {
+    if (!historyClearConfirmation) return;
+
+    setHistoryClearConfirmation(false);
+    dispatch({ type: TaskActionTypes.RESET_TASK });
+  }, [historyClearConfirmation, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      toastifyAdapter.dismiss();
+    };
+  }, []);
+
   function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
     const newDirection = sortTaskOptions.direction === 'desc' ? 'asc' : 'desc';
 
@@ -51,8 +67,13 @@ export function History() {
   }
 
   function handleResetHistory() {
-    if (!confirm('Are you sure you want to delete the history?')) return;
-    dispatch({ type: TaskActionTypes.RESET_TASK });
+    toastifyAdapter.dismiss();
+    toastifyAdapter.confirm(
+      'Are you sure you want to delete the history?',
+      confirmation => {
+        setHistoryClearConfirmation(confirmation);
+      },
+    );
   }
 
   return (
