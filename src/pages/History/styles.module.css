@@ -44,3 +44,9 @@
 .thSort:hover {
   filter: brightness(80%);
 }
+
+.tableComment {
+  text-align: center;
+  display: block;
+  font-weight: bold;
+}
