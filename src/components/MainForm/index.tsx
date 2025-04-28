@@ -2,7 +2,6 @@ import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 import { Cycles } from '../Cycles';
 import { Colour, DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
-import styles from './styles.module.css';
 import React from 'react';
 import { v4 } from 'uuid';
 import { TaskModel } from '../../models/TaskModel';
@@ -12,6 +11,8 @@ import { getCycleType } from '../../utils/getCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 import { Tips } from '../Tips';
 import { toastifyAdapter } from '../../adapters/toastifyAdapter';
+
+import styles from './styles.module.css';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();

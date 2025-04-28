@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { getCycleType } from '../../utils/getCycleType';
 import { getNextCycle } from '../../utils/getNextCycle';
+
 import styles from './styles.module.css';
 
 export function Cycles() {

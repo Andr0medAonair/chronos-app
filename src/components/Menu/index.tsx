@@ -1,7 +1,8 @@
 import { HistoryIcon, HouseIcon, MoonIcon, SettingsIcon, SunIcon } from 'lucide-react';
-import styles from './styles.module.css';
 import React, { useEffect } from 'react';
 import { RouterLink } from '../RouterLink';
+
+import styles from './styles.module.css';
 
 type AvailableThemes = 'dark' | 'light';
 
