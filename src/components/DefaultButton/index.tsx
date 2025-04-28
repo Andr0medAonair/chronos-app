@@ -1,11 +1,7 @@
 import React from 'react';
+import { Colour } from './colour';
 
 import styles from './styles.module.css';
-
-export enum Colour {
-  RED = "red",
-  GREEN = "green"
-}
 
 type DefaultButtonProps = {
   icon: React.ReactNode;
@@ -21,3 +17,5 @@ export function DefaultButton({ icon, color = Colour.GREEN, ...props }: DefaultB
     </>
   );
 }
+export { Colour };
+
