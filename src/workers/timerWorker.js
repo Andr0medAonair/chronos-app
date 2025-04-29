@@ -1,9 +1,3 @@
-import {
-  calculateCountdownSecondsCeil,
-  calculateCountdownSecondsFloor,
-  calculateEndDate,
-} from '../utils/timerWorkerFormatters.ts';
-
 let isRunning = false;
 
 self.onmessage = function (event) {
@@ -14,14 +8,17 @@ self.onmessage = function (event) {
   const state = event.data;
   const { activeTask, secondsRemaining } = state;
 
-  const endDate = calculateEndDate(activeTask.startDate, secondsRemaining);
-  let countdownSeconds = calculateCountdownSecondsCeil(endDate);
+  const endDate = activeTask.startDate + secondsRemaining * 1000;
+  const now = Date.now();
+  let countDownSeconds = Math.ceil((endDate - now) / 1000);
 
   function tick() {
-    self.postMessage(countdownSeconds);
-    countdownSeconds = calculateCountdownSecondsFloor(endDate);
+    self.postMessage(countDownSeconds);
 
-    setTimeout(tick, 1000)
+    const now = Date.now();
+    countDownSeconds = Math.floor((endDate - now) / 1000);
+
+    setTimeout(tick, 1000);
   }
 
   tick();
