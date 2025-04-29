@@ -7,7 +7,7 @@ export class TimerWorkerManager {
   private worker: Worker;
 
   private constructor() {
-    this.worker = new Worker(new URL(timerWorkerPath, import.meta.url), { type: 'module' })
+    this.worker = new Worker(new URL(timerWorkerPath, import.meta.url))
   }
 
   static getInstance() {
