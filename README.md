@@ -86,3 +86,8 @@ npm run lint	Run eslint checks
 
 ## 📜 License
 This project is licensed under the MIT License.
+
+## 💻 Deploy
+This project uses Vercel for deploy. Here's the link:
+
+https://chronos-app-olive.vercel.app/
