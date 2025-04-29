@@ -4,7 +4,7 @@ A modern Chronos Pomodoro React application built with Vite, TypeScript, HTML an
 
 ## 🚩 Status
 
-🚧 In progress
+🏁 Finished
 
 ## ✨ Features
   - ⚡ Fast bundling with Vite

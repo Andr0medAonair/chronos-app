@@ -14,6 +14,10 @@ import { toastifyAdapter } from '../../adapters/toastifyAdapter';
 import styles from './styles.module.css';
 
 export function History() {
+  useEffect(() => {
+    document.title = 'Task History - Chronos Pomodoro';
+  }, []);
+
   const { state, dispatch } = useTaskContext();
   const [historyClearConfirmation, setHistoryClearConfirmation] =
     useState(false);

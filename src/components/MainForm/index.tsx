@@ -61,7 +61,7 @@ export function MainForm() {
       <div className={styles.formRow}>
         <DefaultInput
           id='myInput'
-          labelText='task'
+          labelText='Task'
           type='text'
           placeholder='Type something...'
           // value={taskName}
