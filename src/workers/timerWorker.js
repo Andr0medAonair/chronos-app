@@ -2,7 +2,7 @@ import {
   calculateCountdownSecondsCeil,
   calculateCountdownSecondsFloor,
   calculateEndDate,
-} from '../utils/timerWorkerFormatters';
+} from '../utils/timerWorkerFormatters.ts';
 
 let isRunning = false;
 
